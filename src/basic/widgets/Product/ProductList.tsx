@@ -4,7 +4,7 @@
  * 상품 목록 표시 컴포넌트
  */
 
-import { ProductWithUI } from '../../../pages/AdminPage';
+import { ProductWithUI } from '../../pages/AdminPage';
 import { ProductCard } from './ProductCard';
 
 interface ProductListProps {

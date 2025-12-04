@@ -5,9 +5,9 @@
  */
 
 import { useCallback } from 'react';
-import { Coupon } from '../../../entities/coupon/model';
-import { isDuplicateCoupon } from '../../../entities/coupon/utils';
-import { useLocalStorage } from '../../../shared/hooks/useLocalStorage';
+import { Coupon } from '../entities/coupon/model';
+import { isDuplicateCoupon } from '../entities/coupon/utils';
+import { useLocalStorage } from '../shared/hooks/useLocalStorage';
 
 interface UseCouponProps {
   initialCoupons: Coupon[];

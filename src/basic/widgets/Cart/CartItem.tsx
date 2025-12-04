@@ -4,8 +4,8 @@
  * 장바구니 개별 아이템 컴포넌트
  */
 
-import { CartItem as CartItemType } from '../../../../types';
-import { CloseIcon, MinusIcon, PlusTextIcon } from '../../../shared/assets/icons/Icons';
+import { CartItem as CartItemType } from '../../../types';
+import { CloseIcon, MinusIcon, PlusTextIcon } from '../../shared/assets/icons/Icons';
 
 interface CartItemProps {
   item: CartItemType;

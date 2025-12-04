@@ -7,9 +7,9 @@ import { filterProducts } from './entities/product/utils';
 import { formatPrice as formatPriceUtil } from './shared/utils/format';
 import { useDebounce } from './shared/hooks/useDebounce';
 import { useToast } from './shared/hooks/useToast';
-import { useCart } from './features/cart/hooks/useCart';
-import { useProduct } from './features/product/hooks/useProduct';
-import { useCoupon } from './features/coupon/hooks/useCoupon';
+import { useCart } from './hooks/useCart';
+import { useProduct } from './hooks/useProduct';
+import { useCoupon } from './hooks/useCoupon';
 import { ToastContainer } from './shared/ui/Toast/ToastContainer';
 
 // 초기 데이터

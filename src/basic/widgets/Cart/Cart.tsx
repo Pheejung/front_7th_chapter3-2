@@ -4,10 +4,10 @@
  * 장바구니, 쿠폰, 결제 정보 표시 컴포넌트
  */
 
-import { CartItem as CartItemType, Coupon } from '../../../../types';
+import { CartItem as CartItemType, Coupon } from '../../../types';
 import { CartItem } from './CartItem';
-import { CouponList } from '../../coupon/components/CouponList';
-import { CartIcon } from '../../../shared/assets/icons/Icons';
+import { CouponList } from '../Coupon/CouponList';
+import { CartIcon } from '../../shared/assets/icons/Icons';
 
 interface CartProps {
   cart: CartItemType[];

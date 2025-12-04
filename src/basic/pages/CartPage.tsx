@@ -8,8 +8,8 @@
 
 import { CartItem, Coupon } from '../../types';
 import { ProductWithUI } from './AdminPage';
-import { ProductList } from '../features/product/components/ProductList';
-import { Cart } from '../features/cart/components/Cart';
+import { ProductList } from '../widgets/Product/ProductList';
+import { Cart } from '../widgets/Cart/Cart';
 
 interface CartPageProps {
   // 데이터

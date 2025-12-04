@@ -5,17 +5,17 @@
  */
 
 import { useState, useCallback, useMemo } from 'react';
-import { CartItem } from '../../../entities/cart/model';
-import { Coupon } from '../../../entities/coupon/model';
-import { Product } from '../../../entities/product/model';
+import { CartItem } from '../entities/cart/model';
+import { Coupon } from '../entities/coupon/model';
+import { Product } from '../entities/product/model';
 import { 
   calculateCartTotal as calcCartTotal,
   calculateItemTotal as calcItemTotal
-} from '../../../entities/cart/utils';
-import { getRemainingStock as getStock } from '../../../entities/product/utils';
-import { canApplyCoupon } from '../../../entities/coupon/utils';
-import { generateOrderNumber } from '../../../shared/utils/format';
-import { useLocalStorage } from '../../../shared/hooks/useLocalStorage';
+} from '../entities/cart/utils';
+import { getRemainingStock as getStock } from '../entities/product/utils';
+import { canApplyCoupon } from '../entities/coupon/utils';
+import { generateOrderNumber } from '../shared/utils/format';
+import { useLocalStorage } from '../shared/hooks/useLocalStorage';
 
 interface UseCartProps {
   products: Product[];

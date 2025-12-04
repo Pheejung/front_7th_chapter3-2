@@ -4,7 +4,7 @@
  * 쿠폰 선택 컴포넌트
  */
 
-import { Coupon } from '../../../../types';
+import { Coupon } from '../../../types';
 
 interface CouponListProps {
   coupons: Coupon[];

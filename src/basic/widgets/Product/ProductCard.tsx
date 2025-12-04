@@ -4,8 +4,8 @@
  * 개별 상품 카드 UI 컴포넌트
  */
 
-import { ProductWithUI } from '../../../pages/AdminPage';
-import { ImageIcon } from '../../../shared/assets/icons/Icons';
+import { ProductWithUI } from '../../pages/AdminPage';
+import { ImageIcon } from '../../shared/assets/icons/Icons';
 
 interface ProductCardProps {
   product: ProductWithUI;

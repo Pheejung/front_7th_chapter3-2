@@ -5,8 +5,8 @@
  */
 
 import { useCallback } from 'react';
-import { ProductWithUI } from '../../../pages/AdminPage';
-import { useLocalStorage } from '../../../shared/hooks/useLocalStorage';
+import { ProductWithUI } from '../pages/AdminPage';
+import { useLocalStorage } from '../shared/hooks/useLocalStorage';
 
 interface UseProductProps {
   initialProducts: ProductWithUI[];
