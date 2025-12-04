@@ -13,6 +13,14 @@
 
 import { useState } from 'react';
 import { Product, Coupon } from '../../types';
+import {
+  validatePrice,
+  validateStock,
+  validateDiscountRate,
+  validateDiscountAmount,
+  isNumericString,
+  parseNumberInput
+} from '../shared/utils/validators';
 
 // ProductWithUI 타입 확장 (UI 전용 속성 추가)
 export interface ProductWithUI extends Product {
@@ -232,16 +240,15 @@ const AdminPage = ({
                       value={productForm.price === 0 ? '' : productForm.price}
                       onChange={(e) => {
                         const value = e.target.value;
-                        if (value === '' || /^\d+$/.test(value)) {
-                          setProductForm({ ...productForm, price: value === '' ? 0 : parseInt(value) });
+                        if (value === '' || isNumericString(value)) {
+                          setProductForm({ ...productForm, price: parseNumberInput(value, 0) });
                         }
                       }}
                       onBlur={(e) => {
-                        const value = e.target.value;
-                        if (value === '') {
-                          setProductForm({ ...productForm, price: 0 });
-                        } else if (parseInt(value) < 0) {
-                          onNotify('가격은 0보다 커야 합니다', 'error');
+                        const price = parseNumberInput(e.target.value, 0);
+                        const validation = validatePrice(price);
+                        if (!validation.isValid) {
+                          onNotify(validation.errorMessage!, 'error');
                           setProductForm({ ...productForm, price: 0 });
                         }
                       }}
@@ -257,20 +264,16 @@ const AdminPage = ({
                       value={productForm.stock === 0 ? '' : productForm.stock}
                       onChange={(e) => {
                         const value = e.target.value;
-                        if (value === '' || /^\d+$/.test(value)) {
-                          setProductForm({ ...productForm, stock: value === '' ? 0 : parseInt(value) });
+                        if (value === '' || isNumericString(value)) {
+                          setProductForm({ ...productForm, stock: parseNumberInput(value, 0) });
                         }
                       }}
                       onBlur={(e) => {
-                        const value = e.target.value;
-                        if (value === '') {
+                        const stock = parseNumberInput(e.target.value, 0);
+                        const validation = validateStock(stock);
+                        if (!validation.isValid) {
+                          onNotify(validation.errorMessage!, 'error');
                           setProductForm({ ...productForm, stock: 0 });
-                        } else if (parseInt(value) < 0) {
-                          onNotify('재고는 0보다 커야 합니다', 'error');
-                          setProductForm({ ...productForm, stock: 0 });
-                        } else if (parseInt(value) > 9999) {
-                          onNotify('재고는 9999개를 초과할 수 없습니다', 'error');
-                          setProductForm({ ...productForm, stock: 9999 });
                         }
                       }}
                       className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-3 py-2 border"
@@ -463,24 +466,23 @@ const AdminPage = ({
                         value={couponForm.discountValue === 0 ? '' : couponForm.discountValue}
                         onChange={(e) => {
                           const value = e.target.value;
-                          if (value === '' || /^\d+$/.test(value)) {
-                            setCouponForm({ ...couponForm, discountValue: value === '' ? 0 : parseInt(value) });
+                          if (value === '' || isNumericString(value)) {
+                            setCouponForm({ ...couponForm, discountValue: parseNumberInput(value, 0) });
                           }
                         }}
                         onBlur={(e) => {
-                          const value = parseInt(e.target.value) || 0;
+                          const value = parseNumberInput(e.target.value, 0);
+                          
                           if (couponForm.discountType === 'percentage') {
-                            if (value > 100) {
-                              onNotify('할인율은 100%를 초과할 수 없습니다', 'error');
-                              setCouponForm({ ...couponForm, discountValue: 100 });
-                            } else if (value < 0) {
+                            const validation = validateDiscountRate(value);
+                            if (!validation.isValid) {
+                              onNotify(validation.errorMessage!, 'error');
                               setCouponForm({ ...couponForm, discountValue: 0 });
                             }
                           } else {
-                            if (value > 100000) {
-                              onNotify('할인 금액은 100,000원을 초과할 수 없습니다', 'error');
-                              setCouponForm({ ...couponForm, discountValue: 100000 });
-                            } else if (value < 0) {
+                            const validation = validateDiscountAmount(value);
+                            if (!validation.isValid) {
+                              onNotify(validation.errorMessage!, 'error');
                               setCouponForm({ ...couponForm, discountValue: 0 });
                             }
                           }
