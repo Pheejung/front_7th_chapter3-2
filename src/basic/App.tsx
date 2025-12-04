@@ -2,15 +2,15 @@ import { useState, useMemo } from 'react';
 import Header from './widgets/Header/Header';
 import AdminPage, { ProductWithUI } from './pages/AdminPage';
 import CartPage from './pages/CartPage';
-import NotificationList from './widgets/NotificationList/NotificationList';
 import { Coupon } from './entities/coupon/model';
 import { filterProducts } from './entities/product/utils';
 import { formatPrice as formatPriceUtil } from './shared/utils/format';
 import { useDebounce } from './shared/hooks/useDebounce';
-import { useNotification } from './shared/hooks/useNotification';
+import { useToast } from './shared/hooks/useToast';
 import { useCart } from './features/cart/hooks/useCart';
 import { useProduct } from './features/product/hooks/useProduct';
 import { useCoupon } from './features/coupon/hooks/useCoupon';
+import { ToastContainer } from './shared/ui/Toast/ToastContainer';
 
 // 초기 데이터
 const initialProducts: ProductWithUI[] = [
@@ -70,25 +70,25 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-  // Notification Hook
-  const { notifications, addNotification, removeNotification } = useNotification();
+  // Toast Hook
+  const { toasts, addToast, removeToast } = useToast();
 
   // Product Hook
   const productHook = useProduct({
     initialProducts,
-    onNotify: addNotification
+    onNotify: addToast
   });
 
   // Coupon Hook
   const couponHook = useCoupon({
     initialCoupons,
-    onNotify: addNotification
+    onNotify: addToast
   });
 
   // Cart Hook
   const cartHook = useCart({
     products: productHook.products,
-    onNotify: addNotification
+    onNotify: addToast
   });
 
   // 검색된 상품 필터링
@@ -112,9 +112,9 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <NotificationList 
-        notifications={notifications}
-        onRemove={removeNotification}
+      <ToastContainer
+        toasts={toasts}
+        onClose={removeToast}
       />
       <Header
         cart={cartHook.cart}
@@ -134,7 +134,7 @@ const App = () => {
             onAddCoupon={couponHook.addCoupon}
             onDeleteCoupon={couponHook.deleteCoupon}
             formatPrice={formatPrice}
-            onNotify={addNotification}
+            onNotify={addToast}
           />
         ) : (
           <CartPage
